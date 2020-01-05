@@ -1,7 +1,7 @@
-from collections import Counter
+from collections import defaultdict
 class Solution:
     def leastBricks(self, wall: List[List[int]]) -> int:
-        brickEdgeLocations = []
+        brickEdgeLocations = defaultdict(int)
         totLength = sum(wall[0])
         totHeight = len(wall)
         for row in wall:
@@ -9,11 +9,10 @@ class Solution:
             for i in range(len(row)):
                 curLoc += row[i]
                 if curLoc < totLength:
-                    brickEdgeLocations.append(curLoc)
-        print(brickEdgeLocations)
+                    brickEdgeLocations[curLoc] += 1
         if(len(brickEdgeLocations) == 0):
             return totHeight
-        else:
-            count = [count for num, count in Counter(brickEdgeLocations).most_common(1)]
-            print(count)
-            return (totHeight - count[0])
+        cuts = 0
+        for key in brickEdgeLocations:
+            cuts = max(cuts, brickEdgeLocations[key])
+        return totHeight - cuts
