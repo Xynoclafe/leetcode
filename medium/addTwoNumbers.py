@@ -5,32 +5,55 @@
 #         self.next = None
 
 class Solution:
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
-        num1 = self.getNums(l1)
-        num2 = self.getNums(l2)
-        num = num1 + num2
-        num = str(num)
-        returnList = []
-        for i in range(len(num)):
-            newItem = ListNode(num[i])
-            returnList.append(newItem)
-        returnList.reverse()
-        for i in range(len(num)-1):
-            returnList[i].next = returnList[i + 1]
-        return returnList[0]
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         
-    def getNums(self, list):
-        multiplier = 1
-        num = 0
-        item = list
-        while item != None:
-            num += item.val * multiplier
-            multiplier *= 10
-            item = item.next
-        return num
+        
+        node1 = l1
+        node2 = l2
+        carry = 0
+        head = ListNode(None)
+        node = head
+        
+        while(node1 and node2):
+            curSum = node1.val + node2.val + carry
+            curVal = curSum % 10
+            carry = curSum // 10
+            if node1 == l1 and node2 == l2:
+                head = ListNode(curVal)
+                node = head
+            else:
+                node.next = ListNode(curVal)
+                node = node.next
+            node1 = node1.next
+            node2 = node2.next
+        
+        while(node1):
+            curSum = node1.val + carry
+            curVal = curSum % 10
+            carry =  curSum // 10
+            if node1 == l1:
+                head = ListNode(curVal)
+                node = head
+            else:
+                node.next = ListNode(curVal)
+                node = node.next
+            node1 = node1.next
             
+        while(node2):
+            curSum = node2.val + carry
+            curVal = curSum % 10
+            carry =  curSum // 10
+            if node2 == l1:
+                head = ListNode(curVal)
+                node = head
+            else:
+                node.next = ListNode(curVal)
+                node = node.next
+            node2 = node2.next
+        
+        if carry != 0:
+            node.next = ListNode(carry)
+            node = node.next
+        
+        return head
+                
