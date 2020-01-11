@@ -14,8 +14,7 @@ class Solution:
                     dictionary[s[i]] = i
                     count += 1 
                 else:
-                    if maxCount < count:
-                        maxCount = count
+                    maxCount = max(maxCount, count)
                     count = i - dictionary[s[i]]
                     lastLocation = dictionary[s[i]]
                     dictionary[s[i]] = i
