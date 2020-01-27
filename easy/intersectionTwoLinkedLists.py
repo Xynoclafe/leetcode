@@ -3,11 +3,11 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
+from collections import deque
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        list1 = []
-        list2 = []
+        list1 = deque()
+        list2 = deque()
         head = headA
         while(head is not None):
             list1.append(head)
@@ -16,7 +16,7 @@ class Solution:
         while(node is not None):
             list2.append(node)
             node = node.next
-        set1 = set(list1).intersection(list2)
+        set1 = set(list1).intersection(set(list2))
         index = 10 ** 10
         if len(set1) == 0:
             return None

@@ -19,6 +19,8 @@ class Solution:
         return neighbors
     
     def cloneGraph(self, node: 'Node') -> 'Node':
+        if node is None:
+            return None
         copyDict = {}
         copyNode = Node(node.val, None)
         copyDict[node] = copyNode

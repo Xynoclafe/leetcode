@@ -13,14 +13,14 @@ class Solution:
         nodeList = []
         for item in lists:
             while(item is not None):
-                nodeList.append(item.val)
+                nodeList.append(item)
                 item = item.next
-        nodeList.sort()
+        nodeList = sorted(nodeList, key = lambda x: x.val)
         if(len(nodeList) == 0):
             return None
-        head = ListNode(nodeList.pop(0))
+        head = nodeList.pop(0)
         node = head
         while(len(nodeList) > 0):
-            node.next = ListNode(nodeList.pop(0))
+            node.next = nodeList.pop(0)
             node = node.next
         return head
